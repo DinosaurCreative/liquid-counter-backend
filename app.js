@@ -1,25 +1,27 @@
 const express = require('express');
 require('dotenv').config();
+const mongoose = require('mongoose');
+const { dataBaseAdress } = require('./utils/config');
 
-// const mongoose = require('mongoose');
-
-const app = express();
 const { PORT = 3000 } = process.env;
+const rootRouter = require('./routes/index');
+const { connected, notConnected } = require('./utils/constants');
+const app = express();
 
 
-// mongoose.connect('mongodb://localhost:27017/liquid-counter-db', {
-//   useNewUrlParser: true,
-//   useCreateIndex: true,
-//     useFindAndModify: false
-// });
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.get('/', (req, res) => {
-  res.status(404).send('<h1>Страница совсем не найдена</h1>')
-}); 
-
-app.post('/item', (req, res) => {
-
+mongoose.connect(dataBaseAdress, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
 })
+.then(() => console.log(connected))
+.catch(() => console.log(notConnected));
+
+
+
+app.use('/', rootRouter);
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`)
