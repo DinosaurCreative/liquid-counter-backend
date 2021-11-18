@@ -19,29 +19,30 @@ const bottleSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  liquidWeight: {
-    type: Number,
-    required: true,
-  },
-  oneMlWeight: {
-    type: Number,
-    required: true,
-  },
   bottleModel: {
-    type: String
+    type: String,
   },
   madeIn: {
     type: String,
-    required: true
+    required: true,
   },
   label: {
     type: String,
+    required: true,
     validate(v) {
       if (!isURL(v)) {
         throw badUrlErr;
       }
     },
-  }
-});
+  },
+  barcode: {
+    type: Number,
+    required: true,
+  },
+  alcoType: {
+    type: String,
+    required: true,
+  },
+}, { versionKey: false });
 
 module.exports = mongoose.model('bottle', bottleSchema);
