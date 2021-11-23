@@ -29,15 +29,22 @@ const bottleSchema = new mongoose.Schema({
   label: {
     type: String,
     required: true,
-    validate(v) {
-      if (!isURL(v)) {
-        throw badUrlErr;
-      }
+    validate: {
+      validator(v) {
+        return isURL(v);
+      },
+      message: () => badUrlErr,
     },
   },
   barcode: {
-    type: Number,
+    type: String,
     required: true,
+    validate: {
+      validator(v) {
+        return v.toString().length === 13;
+      },
+      message: () => 'Код должен состоять из девяти цифр',
+    },
   },
   alcoType: {
     type: String,
@@ -45,4 +52,6 @@ const bottleSchema = new mongoose.Schema({
   },
 }, { versionKey: false });
 
-module.exports = mongoose.model('bottle', bottleSchema);
+bottleSchema.index({ name: 1, volume: 1 }, { unique: true });
+
+module.exports = mongoose.model('Bottle', bottleSchema);

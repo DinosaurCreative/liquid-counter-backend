@@ -1,22 +1,14 @@
 const Bottle = require('../models/bottle');
+const BadRequestError = require('../errors/BadRequesError');
+const ConflictError = require('../errors/ConflictError');
 
 module.exports.getBottles = (req, res, next) => {
   Bottle.find({})
     .then((bottles) => res.send({ data: bottles }))
     .catch((err) => {
-      console.log(err);
-      next();
+      next(err);
     });
 };
-
-// module.exports.getBottle = (req, res, next) => {
-//   Bottle.findOne(req.barcode)
-//     .then((bottle) => res.send({ data: bottle }))
-//     .catch((err) => {
-//       console.log(err);
-//       next();
-//     });
-// };
 
 module.exports.createBottle = (req, res, next) => {
   const {
@@ -48,7 +40,12 @@ module.exports.createBottle = (req, res, next) => {
   })
     .then((bottle) => res.send({ data: bottle }))
     .catch((err) => {
-      console.log(err);
-      next();
+      const pathName = err.message.split('`')[1];
+      if (err.message.includes('required')) {
+        return next(new BadRequestError(`Отсутствуе поле ${pathName}`));
+      } if (err.code === 11000) {
+        return next(new ConflictError(`Позиция ${err.keyValue.name} c объемом ${err.keyValue.volume} уже содержится в базе данных`));
+      }
+      return next(err);
     });
 };

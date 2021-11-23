@@ -1,8 +1,9 @@
 const router = require('express').Router();
-
 const { createBottle, getBottles } = require('../controllers/bottles');
+const { createBottleValidation } = require('../middlewares/validators');
 
-router.post('/bottles', createBottle);
-router.get('/bottles', getBottles);
+router.post('/bottles', createBottleValidation, createBottle);
+
+router.get('/', getBottles);
 
 module.exports = router;
