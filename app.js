@@ -2,21 +2,24 @@ const express = require('express');
 require('dotenv').config();
 const mongoose = require('mongoose');
 const { errors } = require('celebrate');
+const cookieParser = require('cookie-parser');
+const helmet = require('helmet');
+const limiter = require('./middlewares/limiter');
 const { dataBaseAdress } = require('./utils/config');
+const { wrongPath } = require('./utils/constants');
 const NotFoundError = require('./errors/NotFoundError');
-const wrongPath = require('./utils/constants');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
+const rootRouter = require('./routes/index');
+const errorHandler = require('./middlewares/errorHandler');
+const { connected, notConnected } = require('./utils/constants');
 
 const { PORT = 3000 } = process.env;
-const rootRouter = require('./routes/index');
-const { connected, notConnected } = require('./utils/constants');
-const errorHandler = require('./middlewares/errorHandler');
-const { requestLogger, errorLogger } = require('./middlewares/logger');
-
 const app = express();
-
+app.use(cookieParser());
+app.use(helmet());
 app.use(express.json());
-
 app.use(express.urlencoded({ extended: true }));
+
 app.use(requestLogger);
 mongoose.connect(dataBaseAdress, {
   useNewUrlParser: true,
@@ -25,6 +28,7 @@ mongoose.connect(dataBaseAdress, {
   .then(() => console.log(connected))
   .catch(() => console.log(notConnected));
 
+app.use(limiter);
 app.use('/', rootRouter);
 
 app.use('*', () => {

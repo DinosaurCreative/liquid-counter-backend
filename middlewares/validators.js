@@ -42,8 +42,15 @@ const loginValidation = celebrate({
   },
 });
 
+const deleteBottleValidation = celebrate({
+  params: Joi.object().keys({
+    id: Joi.string().length(24).hex(),
+  }),
+});
+
 module.exports = {
   createBottleValidation,
   createUserValidation,
   loginValidation,
+  deleteBottleValidation,
 };

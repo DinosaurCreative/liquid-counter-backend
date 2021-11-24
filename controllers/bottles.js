@@ -1,6 +1,8 @@
 const Bottle = require('../models/bottle');
 const BadRequestError = require('../errors/BadRequesError');
 const ConflictError = require('../errors/ConflictError');
+const NotFoundError = require('../errors/NotFoundError');
+const { bottleIdMissing } = require('../utils/constants');
 
 module.exports.getBottles = (req, res, next) => {
   Bottle.find({})
@@ -48,4 +50,11 @@ module.exports.createBottle = (req, res, next) => {
       }
       return next(err);
     });
+};
+
+module.exports.deleteBottle = (req, res, next) => {
+  Bottle.findOneAndRemove(req.params.id)
+    .orFail(new NotFoundError(bottleIdMissing))
+    .then((bottle) => res.send({ message: `Товар: "${bottle.name}" с объемом ${bottle.volume} удален!` }))
+    .catch((err) => next(err));
 };
