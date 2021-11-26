@@ -25,6 +25,7 @@ module.exports.createBottle = (req, res, next) => {
     label,
     barcode,
     alcoType,
+    bottleCapWeight,
   } = req.body;
 
   Bottle.create({
@@ -39,6 +40,7 @@ module.exports.createBottle = (req, res, next) => {
     label,
     barcode,
     alcoType,
+    bottleCapWeight,
   })
     .then((bottle) => res.send({ data: bottle }))
     .catch((err) => {
@@ -46,7 +48,7 @@ module.exports.createBottle = (req, res, next) => {
       if (err.message.includes('required')) {
         return next(new BadRequestError(`Отсутствуе поле ${pathName}`));
       } if (err.code === 11000) {
-        return next(new ConflictError(`Позиция ${err.keyValue.name} c объемом ${err.keyValue.volume} уже содержится в базе данных`));
+        return next(new ConflictError(`Позиция ${err.keyValue.name} ${err.keyValue.volume} уже содержится в базе данных`));
       }
       return next(err);
     });
@@ -55,6 +57,6 @@ module.exports.createBottle = (req, res, next) => {
 module.exports.deleteBottle = (req, res, next) => {
   Bottle.findOneAndRemove(req.params.id)
     .orFail(new NotFoundError(bottleIdMissing))
-    .then((bottle) => res.send({ message: `Товар: "${bottle.name}" с объемом ${bottle.volume} удален!` }))
+    .then((bottle) => res.send({ message: `Позиция ${bottle.name} ${bottle.volume} удалена!` }))
     .catch((err) => next(err));
 };

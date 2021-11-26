@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const { isURL } = require('validator');
-const { badUrlErr } = require('../utils/constants');
+const { badUrlErr, barcodeError } = require('../utils/constants');
 
 const bottleSchema = new mongoose.Schema({
   name: {
@@ -43,11 +43,15 @@ const bottleSchema = new mongoose.Schema({
       validator(v) {
         return v.toString().length === 13;
       },
-      message: () => 'Код должен состоять из девяти цифр',
+      message: () => barcodeError,
     },
   },
   alcoType: {
     type: String,
+    required: true,
+  },
+  bottleCapWeight: {
+    type: Number,
     required: true,
   },
 }, { versionKey: false });

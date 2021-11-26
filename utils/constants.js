@@ -15,6 +15,7 @@ const emailBusy = 'Пользователь с таким имейлом уже 
 const passKeys = ['koreanBanana', 'pinkSmekalka', 'toeButter', 'brownNote', 'JapaniseVinDisel'];
 const secretKeyBusy = 'Пользователь с таким секретным ключом уже зарегистрирован!';
 const bottleIdMissing = 'Товар с указанным ID не найден!';
+const barcodeError = 'Код должен состоять из девяти цифр';
 const allowedCors = [
   'http://localhost:3000',
   'http://localhost:3000/',
@@ -24,6 +25,7 @@ const allowedCors = [
 
 module.exports = {
   allowedMethods,
+  barcodeError,
   bottleIdMissing,
   emailBusy,
   emailRegexp,
