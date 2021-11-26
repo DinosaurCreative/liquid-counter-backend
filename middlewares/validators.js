@@ -14,11 +14,17 @@ const createBottleValidation = celebrate({
       if (String(value).length === 13) {
         return value;
       }
-      return helpers.message('Поле "barcode" доллжно состоять из 13 цифр.');
+      return helpers.message('Поле "Код товара" доллжно состоять из 13 цифр.');
     }),
     alcoType: Joi.string().required().min(2),
     label: Joi.string().required().custom((value, helpers) => {
       if (isURL(value)) {
+        return value;
+      }
+      return helpers.message('Поле "Вес крышки" заполнено некорректно.');
+    }),
+    bottleCapWeight: Joi.number().required().custom((value, helpers) => {
+      if (value < 0.50 && value > 0) {
         return value;
       }
       return helpers.message('Поле "label" заполнено некорректно.');
