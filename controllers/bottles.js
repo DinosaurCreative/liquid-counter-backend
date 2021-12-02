@@ -42,7 +42,7 @@ module.exports.createBottle = (req, res, next) => {
     alcoType,
     bottleCapWeight,
   })
-    .then((bottle) => res.send({ data: bottle }))
+    .then((bottle) => res.status(201).send({ data: bottle }))
     .catch((err) => {
       const pathName = err.message.split('`')[1];
       if (err.message.includes('required')) {

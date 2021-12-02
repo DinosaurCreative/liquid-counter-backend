@@ -10,7 +10,7 @@
     "lint": "npx eslint ."
   },
   "keywords": [],
-  "author": "",
+  "author": "Gimaev German",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.1",

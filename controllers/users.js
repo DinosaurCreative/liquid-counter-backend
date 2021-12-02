@@ -32,7 +32,7 @@ module.exports.createUser = (req, res, next) => {
         name, email, password: hash, secretKey,
       })
         .then((user) => {
-          res.send({ email, name, _id: user._id });
+          res.status(201).send({ email, name, _id: user._id });
         })
         .catch((err) => {
           if (err.message.includes('email_1')) {
