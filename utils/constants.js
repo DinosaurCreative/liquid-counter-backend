@@ -16,7 +16,7 @@ const passKeys = ['koreanBanana', 'pinkSmekalka', 'toeButter', 'brownNote', 'Jap
 const secretKeyBusy = 'Пользователь с таким секретным ключом уже зарегистрирован!';
 const bottleIdMissing = 'Товар с указанным ID не найден!';
 const barcodeError = 'Код должен состоять из девяти цифр';
-const inventaMissing = ' ИНвентаризация не найдена';
+const inventaMissing = ' Инвентаризация не найдена';
 const allowedCors = [
   'http://localhost:3000',
   'http://localhost:3000/',

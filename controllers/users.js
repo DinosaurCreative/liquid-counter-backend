@@ -65,7 +65,6 @@ module.exports.login = (req, res, next) => {
       }).send({ _id, name, email });
     })
     .catch((err) => {
-      console.log(err.message, 1111);
       if (err.message.includes('duplicate')) {
         next(new UnauthorizedError(wrongUserData));
         return;

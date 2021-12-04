@@ -4,30 +4,30 @@ const { badUrlErr, barcodeError } = require('../utils/constants');
 
 const bottleSchema = new mongoose.Schema({
   name: {
-    String,
+    type: String,
     required: true,
   },
   volume: {
-    Number,
+    type: Number,
     required: true,
   },
   fullWeight: {
-    Number,
+    type: Number,
     required: true,
   },
   bottleWeight: {
-    Number,
+    type: Number,
     required: true,
   },
   bottleModel: {
-    String,
+    type: String,
   },
   madeIn: {
-    String,
+    type: String,
     required: true,
   },
   label: {
-    String,
+    type: String,
     required: true,
     validate: {
       validator(v) {
@@ -37,7 +37,7 @@ const bottleSchema = new mongoose.Schema({
     },
   },
   barcode: {
-    String,
+    type: String,
     required: true,
     validate: {
       validator(v) {
@@ -47,11 +47,11 @@ const bottleSchema = new mongoose.Schema({
     },
   },
   alcoType: {
-    String,
+    type: String,
     required: true,
   },
   bottleCapWeight: {
-    Number,
+    type: Number,
     required: true,
   },
 }, { versionKey: false });

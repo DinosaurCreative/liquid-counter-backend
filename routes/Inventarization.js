@@ -3,8 +3,8 @@ const { getInventarizations, createInventarization, deleteInventarization } = re
 const { createInventarizationValidation, deleteInventarizationValidation } = require('../middlewares/validators');
 const auth = require('../middlewares/auth');
 
-router.get('/', auth, getInventarizations);
+router.get('/inventa', auth, getInventarizations);
 router.post('/create_inventa', createInventarizationValidation, createInventarization);
-router.delete('/delete_inventa', deleteInventarizationValidation, deleteInventarization);
+router.delete('/delete_inventa/:id', deleteInventarizationValidation, deleteInventarization);
 
 module.exports = router;

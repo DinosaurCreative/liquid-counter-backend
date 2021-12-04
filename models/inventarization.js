@@ -2,27 +2,27 @@ const mongoose = require('mongoose');
 
 const inventarizatioSchema = new mongoose.Schema({
   nameInCharge: {
-    String,
+    type: String,
     required: true,
   },
   barName: {
-    String,
+    type: String,
     required: true,
   },
   date: {
-    String,
+    type: String,
     required: true,
   },
   remainders: [{
     drinkName: {
-      String,
+      type: String,
       required: true,
     },
     remainder: {
-      Number,
+      type: Number,
       required: true,
     },
   }],
-});
+}, { versionKey: false });
 
 module.exports = mongoose.model('Inventarization', inventarizatioSchema);

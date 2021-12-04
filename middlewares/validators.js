@@ -66,7 +66,7 @@ const createInventarizationValidation = celebrate({
     barName: Joi.string().required(),
     date: Joi.string().required(),
     remainders: Joi.array().items(Joi.object().keys({
-      drinkName: Joi.string.required(),
+      drinkName: Joi.string().required(),
       remainder: Joi.number().required(),
     })),
   },
