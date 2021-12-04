@@ -4,10 +4,28 @@ const { inventaMissing } = require('../utils/constants');
 
 module.exports.getInventarizations = (req, res, next) => {
   Inventarization.find({})
-    .then((inventas) => res.send({ data: inventas }))
+    .then((inventas) => inventas.map((item) => {
+      const {
+        nameInCharge, barName, date, _id,
+      } = item;
+      return {
+        nameInCharge,
+        barName,
+        date,
+        _id,
+      };
+    }))
+    .then((data) => res.send(data))
     .catch((err) => {
       next(err);
     });
+};
+
+module.exports.getCertainInventarization = (req, res, next) => {
+  Inventarization.findById(req.params.id)
+    .orFail(new NotFoundError(inventaMissing))
+    .then((inventa) => res.send(inventa))
+    .catch((err) => next(err));
 };
 
 module.exports.createInventarization = (req, res, next) => {
