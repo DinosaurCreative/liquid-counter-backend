@@ -4,3 +4,7 @@ node_modules/
 # Optional npm cache directory
 logs
 *.log
+
+# Optional REPL history
+.DS_Store
+.ideaw
