@@ -54,9 +54,29 @@ const deleteBottleValidation = celebrate({
   }),
 });
 
+const deleteInventarizationValidation = celebrate({
+  params: Joi.object().keys({
+    id: Joi.string().length(24).hex(),
+  }),
+});
+
+const createInventarizationValidation = celebrate({
+  body: {
+    nameInCharge: Joi.string().required(),
+    barName: Joi.string().required(),
+    date: Joi.string().required(),
+    remainders: Joi.array().items(Joi.object().keys({
+      drinkName: Joi.string.required(),
+      remainder: Joi.number().required(),
+    })),
+  },
+});
+
 module.exports = {
   createBottleValidation,
+  deleteInventarizationValidation,
   createUserValidation,
   loginValidation,
   deleteBottleValidation,
+  createInventarizationValidation,
 };
