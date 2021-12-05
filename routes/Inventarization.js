@@ -7,7 +7,7 @@ const auth = require('../middlewares/auth');
 
 router.get('/inventa', auth, getInventarizations);
 router.get('/inventa/:id', auth, getCertainInventarization);
-router.post('/create_inventa', createInventarizationValidation, createInventarization);
-router.delete('/delete_inventa/:id', deleteInventarizationValidation, deleteInventarization);
+router.post('/create_inventa', auth, createInventarizationValidation, createInventarization);
+router.delete('/delete_inventa/:id', auth, deleteInventarizationValidation, deleteInventarization);
 
 module.exports = router;

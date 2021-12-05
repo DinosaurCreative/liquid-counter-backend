@@ -34,6 +34,7 @@ module.exports.createInventarization = (req, res, next) => {
     barName,
     date,
     remainders,
+    creator = req.user._id,
   } = req.body;
 
   Inventarization.create({
@@ -41,6 +42,7 @@ module.exports.createInventarization = (req, res, next) => {
     barName,
     date,
     remainders,
+    creator,
   })
     .then((inventa) => res.status(201).send({ data: inventa }))
     .catch((err) => {
