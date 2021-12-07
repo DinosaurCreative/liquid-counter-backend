@@ -26,7 +26,7 @@ const inventarizatioSchema = new mongoose.Schema({
   creator: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
-    // required: true,
+    required: true,
   },
 }, { versionKey: false });
 

@@ -56,3 +56,37 @@ module.exports.deleteBottle = (req, res, next) => {
     .then((bottle) => res.send({ message: `Позиция ${bottle.name} ${bottle.volume} удалена!` }))
     .catch((err) => next(err));
 };
+
+module.exports.updateBottle = (req, res, next) => {
+  const {
+    name,
+    volume,
+    fullWeight,
+    bottleWeight,
+    bottleModel,
+    madeIn,
+    label,
+    barcode,
+    alcoType,
+    bottleCapWeight,
+  } = req.body;
+
+  Bottle.findOneAndUpdate(
+    req.params.id,
+    {
+      name,
+      volume,
+      fullWeight,
+      bottleWeight,
+      bottleModel,
+      madeIn,
+      label,
+      barcode,
+      alcoType,
+      bottleCapWeight,
+    },
+    { runValidators: true, new: true },
+  )
+    .then((bottle) => res.send({ message: `Позиция ${bottle.name} ${bottle.volume} была изменена!` }))
+    .catch((err) => next(err));
+};

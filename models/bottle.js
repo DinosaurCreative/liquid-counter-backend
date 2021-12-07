@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const { isURL } = require('validator');
-const { badUrlErr, barcodeError } = require('../utils/constants');
+const { badUrlErr, barcodeError, allowedItemsTypes } = require('../utils/constants');
 
 const bottleSchema = new mongoose.Schema({
   name: {
@@ -49,6 +49,7 @@ const bottleSchema = new mongoose.Schema({
   alcoType: {
     type: String,
     required: true,
+    enum: allowedItemsTypes,
   },
   bottleCapWeight: {
     type: Number,
