@@ -16,9 +16,7 @@ module.exports.getInventarizations = (req, res, next) => {
       };
     }))
     .then((data) => res.send(data))
-    .catch((err) => {
-      next(err);
-    });
+    .catch((err) => next(err));
 };
 
 module.exports.getCertainInventarization = (req, res, next) => {
@@ -44,10 +42,10 @@ module.exports.createInventarization = (req, res, next) => {
     remainders,
     creator,
   })
-    .then((inventa) => res.status(201).send({ data: inventa }))
-    .catch((err) => {
-      next(err);
-    });
+    .then((inventa) => {
+      res.status(201).send({ data: inventa });
+    })
+    .catch((err) => next(err));
 };
 
 module.exports.deleteInventarization = (req, res, next) => {

@@ -98,6 +98,7 @@ const createInventarizationValidation = celebrate({
     remainders: Joi.array().items(Joi.object().keys({
       drinkName: Joi.string().required(),
       remainder: Joi.number().required(),
+      isUnknown: Joi.boolean().required(),
     })),
   },
 });

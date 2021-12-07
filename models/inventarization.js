@@ -22,6 +22,10 @@ const inventarizatioSchema = new mongoose.Schema({
       type: Number,
       required: true,
     },
+    isUnknown: {
+      type: Boolean,
+      required: true,
+    },
   }],
   creator: {
     type: mongoose.Schema.Types.ObjectId,
