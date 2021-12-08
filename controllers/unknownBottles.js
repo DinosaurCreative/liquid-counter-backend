@@ -1,4 +1,8 @@
 const unknownBottle = require('../models/unknownBottle');
+const NotFoundError = require('../errors/NotFoundError');
+const {
+  itemNotFound, deletedFromUnknownBtls, unknownDbId, itemAddedToUnknownLIst,
+} = require('../utils/constants');
 
 module.exports.getUnknownBottles = (req, res, next) => {
   unknownBottle.find({})
@@ -12,19 +16,20 @@ module.exports.createUnknownBottle = (req, res, next) => {
     volume: item.volume,
     creator: req.user._id,
   }));
-  unknownBottle.updateOne({ _id: '61af2b32305bcb86bcdae133' }, { $push: { unknownBottles: newUnknownBtl } })
-    .then(() => res.send('Товар внесён в список на добавление в базу данных.'))
+  unknownBottle.updateOne({ _id: unknownDbId }, { $push: { unknownBottles: newUnknownBtl } })
+    .then(() => res.send(itemAddedToUnknownLIst))
     .catch((err) => next(err));
 };
 
 module.exports.deleteUnknownBottle = (req, res, next) => {
-  unknownBottle.findByIdAndRemove(req.params.id)
-    .then((answ) => res.send(`Товар ${answ} удален из списка неизвестных товаров`))
-    .catch((err) => next(err));
-};
-
-module.exports.deleteUnknownBottle = (req, res, next) => {
-  unknownBottle.findByIdAndRemove(req.params.id)
-    .then((answ) => res.send(`Товар ${answ} удален из списка неизвестных товаров`))
+  unknownBottle.updateMany({
+    _id: unknownDbId,
+  }, { $pull: { unknownBottles: { _id: req.params.id } } })
+    .then((answ) => {
+      if (!answ.modifiedCount) {
+        throw new NotFoundError(itemNotFound);
+      }
+      res.send(deletedFromUnknownBtls);
+    })
     .catch((err) => next(err));
 };

@@ -8,6 +8,7 @@ const {
   passKeys,
   emailBusy,
   secretKeyBusy,
+  cookieRemoved,
 } = require('../utils/constants');
 const BadRequestError = require('../errors/BadRequesError');
 const UnauthorizedError = require('../errors/UnauthorizedError');
@@ -46,7 +47,6 @@ module.exports.createUser = (req, res, next) => {
         });
     })
     .catch((err) => {
-      console.log(err, 'err');
       next(err);
     });
 };
@@ -77,6 +77,6 @@ module.exports.signOut = (req, res, next) => {
   res.clearCookie('_id', {
     sameSite: 'None',
     secure: true,
-  }).send({ message: 'Куки удалены' });
+  }).send({ message: cookieRemoved });
   next();
 };

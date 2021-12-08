@@ -17,6 +17,16 @@ const secretKeyBusy = 'Пользователь с таким секретным
 const bottleIdMissing = 'Товар с указанным ID не найден!';
 const barcodeError = 'Код должен состоять из девяти цифр';
 const inventaMissing = ' Инвентаризация не найдена';
+const itemNotFound = 'Позиция отсутсвует в базе данных.';
+const deletedFromUnknownBtls = 'Товар удален из списка неизвестных товаров';
+const unknownDbId = '61af2b32305bcb86bcdae133';
+const itemAddedToUnknownLIst = 'Товар внесён в список на добавление в базу данных.';
+const authErr = 'Ошибка авторизации';
+const login = 'Авторизуйтесь';
+const cookieRemoved = 'Куки удалены';
+const itemCodeErr = 'Поле "Код товара" доллжно состоять из 13 цифр.';
+const itemCapWeightErr = 'Поле "Вес крышки" заполнено некорректно.';
+const itemLabelErr = 'Поле "label" заполнено некорректно.';
 const allowedCors = [
   'http://localhost:3000',
   'http://localhost:3000/',
@@ -64,6 +74,14 @@ const allowedItemsTypes = [
 ];
 
 module.exports = {
+  itemNotFound,
+  itemCapWeightErr,
+  itemLabelErr,
+  cookieRemoved,
+  itemCodeErr,
+  authErr,
+  login,
+  itemAddedToUnknownLIst,
   allowedItemsTypes,
   inventaMissing,
   allowedMethods,
@@ -85,4 +103,6 @@ module.exports = {
   passwordMissing,
   wrongUserData,
   passKeys,
+  deletedFromUnknownBtls,
+  unknownDbId,
 };

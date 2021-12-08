@@ -1,6 +1,8 @@
 const { celebrate, Joi } = require('celebrate');
 const { isURL } = require('validator');
-const { emailRegexp } = require('../utils/constants');
+const {
+  emailRegexp, itemCodeErr, itemCapWeightErr, itemLabelErr,
+} = require('../utils/constants');
 
 const createBottleValidation = celebrate({
   body: Joi.object().keys({
@@ -14,20 +16,20 @@ const createBottleValidation = celebrate({
       if (String(value).length === 13) {
         return value;
       }
-      return helpers.message('Поле "Код товара" доллжно состоять из 13 цифр.');
+      return helpers.message(itemCodeErr);
     }),
     alcoType: Joi.string().required().min(2),
     label: Joi.string().required().custom((value, helpers) => {
       if (isURL(value)) {
         return value;
       }
-      return helpers.message('Поле "Вес крышки" заполнено некорректно.');
+      return helpers.message(itemLabelErr);
     }),
     bottleCapWeight: Joi.number().required().custom((value, helpers) => {
       if (value < 0.50 && value > 0) {
         return value;
       }
-      return helpers.message('Поле "label" заполнено некорректно.');
+      return helpers.message(itemCapWeightErr);
     }),
   }),
 });
@@ -66,20 +68,20 @@ const updateBottleValidation = celebrate({
       if (String(value).length === 13) {
         return value;
       }
-      return helpers.message('Поле "Код товара" доллжно состоять из 13 цифр.');
+      return helpers.message(itemCodeErr);
     }),
     alcoType: Joi.string().required().min(2),
     label: Joi.string().required().custom((value, helpers) => {
       if (isURL(value)) {
         return value;
       }
-      return helpers.message('Поле "Вес крышки" заполнено некорректно.');
+      return helpers.message(itemLabelErr);
     }),
     bottleCapWeight: Joi.number().required().custom((value, helpers) => {
       if (value < 0.50 && value > 0) {
         return value;
       }
-      return helpers.message('Поле "label" заполнено некорректно.');
+      return helpers.message(itemCapWeightErr);
     }),
   }),
 });
