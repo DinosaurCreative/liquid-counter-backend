@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { allowedItemsTypes } = require('../utils/constants');
 
 const inventarizatioSchema = new mongoose.Schema({
   nameInCharge: {
@@ -25,6 +26,17 @@ const inventarizatioSchema = new mongoose.Schema({
     isUnknown: {
       type: Boolean,
       required: true,
+    },
+    drinkType: {
+      type: String,
+      required: true,
+      enum: allowedItemsTypes,
+    },
+    fullBottle: {
+      type: Number,
+    },
+    openedBottle: {
+      type: Number,
     },
   }],
   creator: {

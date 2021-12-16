@@ -4,21 +4,19 @@ const User = require('../models/user');
 const {
   wrongSecreteKey,
   passwordMissing,
-  // wrongUserData,
   passKeys,
   emailBusy,
   secretKeyBusy,
   cookieRemoved,
 } = require('../utils/constants');
 const BadRequestError = require('../errors/BadRequesError');
-// const UnauthorizedError = require('../errors/UnauthorizedError');
 const ConflictError = require('../errors/ConflictError');
 
 const { JWT_SECRET, NODE_ENV } = process.env;
 
 module.exports.createUser = (req, res, next) => {
   const {
-    password, name, email, secretKey,
+    password, name, email, barName, secretKey,
   } = req.body;
   if (!password) {
     next(new BadRequestError(passwordMissing));
@@ -30,10 +28,12 @@ module.exports.createUser = (req, res, next) => {
   bcrypt.hash(password, 10)
     .then((hash) => {
       User.create({
-        name, email, password: hash, secretKey,
+        name, email, barName, password: hash, secretKey,
       })
         .then((user) => {
-          res.status(201).send({ email, name, _id: user._id });
+          res.status(201).send({
+            email, barName, name, _id: user._id,
+          });
         })
         .catch((err) => {
           if (err.message.includes('email_1')) {
@@ -65,12 +65,7 @@ module.exports.login = (req, res, next) => {
       }).send({ _id, name, email });
     })
     .catch((err) => {
-      // if (err.message.includes('duplicate')) {
-      //   next(new UnauthorizedError(wrongUserData));
-      //   return;
-      // }
       next(err);
-      console.log(err);
     });
 };
 

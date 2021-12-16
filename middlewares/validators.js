@@ -40,6 +40,7 @@ const createUserValidation = celebrate({
     email: Joi.string().pattern(emailRegexp).required(),
     password: Joi.string().min(8).required(),
     secretKey: Joi.string().max(32),
+    barName: Joi.string().min(2).max(50).required(),
   },
 });
 
@@ -101,6 +102,9 @@ const createInventarizationValidation = celebrate({
       drinkName: Joi.string().required(),
       remainder: Joi.number().required(),
       isUnknown: Joi.boolean().required(),
+      drinkType: Joi.string().required(),
+      fullBottle: Joi.number(),
+      openedBottle: Joi.number(),
     })),
   },
 });
