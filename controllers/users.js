@@ -4,14 +4,14 @@ const User = require('../models/user');
 const {
   wrongSecreteKey,
   passwordMissing,
-  wrongUserData,
+  // wrongUserData,
   passKeys,
   emailBusy,
   secretKeyBusy,
   cookieRemoved,
 } = require('../utils/constants');
 const BadRequestError = require('../errors/BadRequesError');
-const UnauthorizedError = require('../errors/UnauthorizedError');
+// const UnauthorizedError = require('../errors/UnauthorizedError');
 const ConflictError = require('../errors/ConflictError');
 
 const { JWT_SECRET, NODE_ENV } = process.env;
@@ -65,11 +65,12 @@ module.exports.login = (req, res, next) => {
       }).send({ _id, name, email });
     })
     .catch((err) => {
-      if (err.message.includes('duplicate')) {
-        next(new UnauthorizedError(wrongUserData));
-        return;
-      }
+      // if (err.message.includes('duplicate')) {
+      //   next(new UnauthorizedError(wrongUserData));
+      //   return;
+      // }
       next(err);
+      console.log(err);
     });
 };
 
