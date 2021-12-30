@@ -98,11 +98,10 @@ const createInventarizationValidation = celebrate({
     nameInCharge: Joi.string().required(),
     barName: Joi.string().required(),
     date: Joi.string().required(),
-    remainders: Joi.array().items(Joi.object().keys({
-      drinkName: Joi.string().required(),
-      remainder: Joi.number().required(),
+    inventaData: Joi.array().items(Joi.object().keys({
+      title: Joi.string().required(),
+      totalVolume: Joi.number().required(),
       isUnknown: Joi.boolean().required(),
-      drinkType: Joi.string().required(),
       fullBottle: Joi.number(),
       openedBottle: Joi.number(),
     })),

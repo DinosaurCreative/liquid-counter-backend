@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const unknownBottleSchema = new mongoose.Schema({
   unknownBottles: [{
-    drinkName: { type: String, required: true },
+    title: { type: String, required: true },
     volume: { type: Number, required: true },
     creator: {
       type: mongoose.Schema.Types.ObjectId,

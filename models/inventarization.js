@@ -14,12 +14,12 @@ const inventarizatioSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  remainders: [{
-    drinkName: {
+  inventaData: [{
+    title: {
       type: String,
       required: true,
     },
-    remainder: {
+    totalVolume: {
       type: Number,
       required: true,
     },
@@ -27,7 +27,7 @@ const inventarizatioSchema = new mongoose.Schema({
       type: Boolean,
       required: true,
     },
-    drinkType: {
+    type: {
       type: String,
       required: true,
       enum: allowedItemsTypes,

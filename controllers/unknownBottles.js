@@ -12,7 +12,7 @@ module.exports.getUnknownBottles = (req, res, next) => {
 
 module.exports.createUnknownBottle = (req, res, next) => {
   const newUnknownBtl = req.body.map((item) => ({
-    drinkName: item.drinkName,
+    title: item.title,
     volume: item.volume,
     creator: req.user._id,
   }));

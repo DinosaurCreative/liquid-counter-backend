@@ -31,7 +31,7 @@ module.exports.createInventarization = (req, res, next) => {
     nameInCharge,
     barName,
     date,
-    remainders,
+    inventaData,
     creator = req.user._id,
   } = req.body;
 
@@ -39,7 +39,7 @@ module.exports.createInventarization = (req, res, next) => {
     nameInCharge,
     barName,
     date,
-    remainders,
+    inventaData,
     creator,
   })
     .then((inventa) => {
