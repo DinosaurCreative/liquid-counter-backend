@@ -3,7 +3,7 @@ const { isURL } = require('validator');
 const { badUrlErr, barcodeError, allowedItemsTypes } = require('../utils/constants');
 
 const bottleSchema = new mongoose.Schema({
-  name: {
+  title: {
     type: String,
     required: true,
   },
@@ -57,6 +57,6 @@ const bottleSchema = new mongoose.Schema({
   },
 }, { versionKey: false });
 
-bottleSchema.index({ name: 1, volume: 1 }, { unique: true });
+bottleSchema.index({ title: 1, volume: 1 }, { unique: true });
 
 module.exports = mongoose.model('Bottle', bottleSchema);

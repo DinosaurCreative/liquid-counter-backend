@@ -6,7 +6,7 @@ const {
 
 const createBottleValidation = celebrate({
   body: Joi.object().keys({
-    name: Joi.string().required().min(2),
+    title: Joi.string().required().min(2),
     volume: Joi.number().required(),
     fullWeight: Joi.number().required(),
     bottleWeight: Joi.number().required(),
@@ -59,7 +59,7 @@ const deleteBottleValidation = celebrate({
 
 const updateBottleValidation = celebrate({
   body: Joi.object().keys({
-    name: Joi.string().required().min(2),
+    title: Joi.string().required().min(2),
     volume: Joi.number().required(),
     fullWeight: Joi.number().required(),
     bottleWeight: Joi.number().required(),
@@ -104,6 +104,7 @@ const createInventarizationValidation = celebrate({
       isUnknown: Joi.boolean().required(),
       fullBottle: Joi.number(),
       openedBottle: Joi.number(),
+      alcoType: Joi.string().required(),
     })),
   },
 });

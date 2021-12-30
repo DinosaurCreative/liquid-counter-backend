@@ -27,7 +27,7 @@ const inventarizatioSchema = new mongoose.Schema({
       type: Boolean,
       required: true,
     },
-    type: {
+    alcoType: {
       type: String,
       required: true,
       enum: allowedItemsTypes,

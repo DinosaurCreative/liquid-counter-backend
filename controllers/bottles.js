@@ -14,7 +14,7 @@ module.exports.getBottles = (req, res, next) => {
 
 module.exports.createBottle = (req, res, next) => {
   const {
-    name,
+    title,
     volume,
     fullWeight,
     bottleWeight,
@@ -27,7 +27,7 @@ module.exports.createBottle = (req, res, next) => {
   } = req.body;
 
   Bottle.create({
-    name,
+    title,
     volume,
     fullWeight,
     bottleWeight,
@@ -44,7 +44,8 @@ module.exports.createBottle = (req, res, next) => {
       if (err.message.includes('required')) {
         return next(new BadRequestError(`Отсутствуе поле ${pathName}`));
       } if (err.code === 11000) {
-        return next(new ConflictError(`Позиция ${err.keyValue.name} ${err.keyValue.volume} уже содержится в базе данных`));
+        console.log(err);
+        return next(new ConflictError(`Позиция ${err.keyValue.title} ${err.keyValue.volume} уже содержится в базе данных`));
       }
       return next(err);
     });
@@ -53,13 +54,13 @@ module.exports.createBottle = (req, res, next) => {
 module.exports.deleteBottle = (req, res, next) => {
   Bottle.findOneAndRemove(req.params.id)
     .orFail(new NotFoundError(bottleIdMissing))
-    .then((bottle) => res.send({ message: `Позиция ${bottle.name} ${bottle.volume} удалена!` }))
+    .then((bottle) => res.send({ message: `Позиция ${bottle.title} ${bottle.volume} удалена!` }))
     .catch((err) => next(err));
 };
 
 module.exports.updateBottle = (req, res, next) => {
   const {
-    name,
+    title,
     volume,
     fullWeight,
     bottleWeight,
@@ -74,7 +75,7 @@ module.exports.updateBottle = (req, res, next) => {
   Bottle.findOneAndUpdate(
     req.params.id,
     {
-      name,
+      title,
       volume,
       fullWeight,
       bottleWeight,
@@ -87,6 +88,6 @@ module.exports.updateBottle = (req, res, next) => {
     },
     { runValidators: true, new: true },
   )
-    .then((bottle) => res.send({ message: `Позиция ${bottle.name} ${bottle.volume} была изменена!` }))
+    .then((bottle) => res.send({ message: `Позиция ${bottle.title} ${bottle.volume} была изменена!` }))
     .catch((err) => next(err));
 };
